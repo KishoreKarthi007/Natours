@@ -141,20 +141,20 @@ tourSchema.pre('save', function (next) {
 
 // QUERY MIDDLEWARE
 tourSchema.pre(/^find/, function (next) {
-    console.log('QUERY MIDDLEWARE Pre: Will be executed on query');
+    // console.log('QUERY MIDDLEWARE Pre: Will be executed on query');
     this.find({ secretTour: { $ne: true } });
     this.start = Date.now();
     next();
 });
-tourSchema.post(/^find/, function (doc, next) {
-    console.log('QUERY MIDDLEWARE Post: Will be executed on query');
-    console.log(`Query took ${Date.now() - this.start} milliseconds`);
-    next();
-});
+// tourSchema.post(/^find/, function (doc, next) {
+//     console.log('QUERY MIDDLEWARE Post: Will be executed on query');
+//     console.log(`Query took ${Date.now() - this.start} milliseconds`);
+//     next();
+// });
 tourSchema.pre(/^find/, function (next) {
-    console.log(
-        'QUERY MIDDLEWARE Pre: Will be executed on query for populating guide'
-    );
+    // console.log(
+    //     'QUERY MIDDLEWARE Pre: Will be executed on query for populating guide'
+    // );
     this.populate({
         path: 'guides',
         select: '-__v -passwordChangedAt',
@@ -170,13 +170,13 @@ tourSchema.pre(/^find/, function (next) {
 //     this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
 //     next();
 // });
-tourSchema.post('aggregate', function (doc, next) {
-    console.log(
-        'AGGREGATE MIDDLEWARE Post: Will be executed on aggregate pipline object'
-    );
-    console.log(this.pipeline());
-    next();
-});
+// tourSchema.post('aggregate', function (doc, next) {
+//     console.log(
+//         'AGGREGATE MIDDLEWARE Post: Will be executed on aggregate pipline object'
+//     );
+//     console.log(this.pipeline());
+//     next();
+// });
 
 const Tour = mongoose.model('Tour', tourSchema);
 

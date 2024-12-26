@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+const compression = require('compression')
 
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
@@ -44,7 +45,7 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 // Development Logging
-console.log(process.env.NODE_ENV);
+// console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
 // Body Parser -> Reading the data from body to req.body
@@ -72,10 +73,12 @@ app.use(
     })
 );
 
+// Compression Middleware
+app.use(compression());
+
 // Testing Middleware
 app.use((req, res, next) => {
     // console.log('CSP Header Set:', res.getHeaders()); // Log the headers
-
     // console.log(req.cookies);
     next();
 });

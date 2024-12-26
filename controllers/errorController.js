@@ -34,7 +34,7 @@ const sendErrorDev = (err, req, res) => {
         });
     }
     // 2) Rendered Website
-    console.error('ERROR');
+    console.error('ERROR', err);
     return res.status(err.statusCode).render('error', {
         title: 'Something went wrong',
         msg: err.message,
@@ -51,7 +51,7 @@ const sendErrorProd = (err, req, res) => {
             });
         }
         // Programming or Unknown Errors
-        console.error('ERROR');
+        console.error('ERROR', err);
         return res.status(500).json({
             status: 'fail',
             message: 'Something went wrong...',
@@ -66,7 +66,7 @@ const sendErrorProd = (err, req, res) => {
         });
     }
     // Programming or Unknown Errors
-    console.error('ERROR');
+    console.error('ERROR', err);
     return res.status(err.statusCode).render('error', {
         title: 'Something went wrong',
         msg: 'Please try again later',
