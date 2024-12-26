@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
-const compression = require('compression')
+const compression = require('compression');
 
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
@@ -20,6 +20,8 @@ const AppError = require('./utils/appError');
 
 // Start the express app
 const app = express();
+
+app.enable('trust proxy');
 
 // TEMPLATE ENGINE
 app.set('view engine', 'pug');
