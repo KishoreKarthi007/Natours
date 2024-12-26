@@ -13,7 +13,7 @@ Welcome to the official repository for the **Natours Project**, a comprehensive 
 - **Pagination, Sorting, and Filtering**: Filter and sort tours.
 - **Responsive Design**: Fully responsive for all devices.
 
-### **Authentication & Authorization**:
+# **Authentication & Authorization**:
 - **JWT Authentication**: Secure login with JWTs via cookies.
 - **Role-based Access Control**: 
   - **Admin**: Full access.
@@ -21,17 +21,17 @@ Welcome to the official repository for the **Natours Project**, a comprehensive 
   - **Lead-Guide**: Manages tours and guides.
   - **Guide**: Limited tour and booking access.
 
-### **Error Handling**:
+# **Error Handling**:
 - **Global Error Handling**: Catch and manage errors, including unhandled routes and async errors.
 - **Mongoose Error Handling**: Manage DB errors (invalid IDs, duplicate fields).
 
-### **Security**:
+# **Security**:
 - **Rate Limiting**: Prevent abuse by limiting requests.
 - **Secure HTTP Headers**: Protect the application.
 - **Data Sanitization**: Prevent malicious input.
 - **CORS**: Control resource sharing between domains.
 
-### **Payment & Email**:
+# **Payment & Email**:
 - **Stripe Integration**: Handle payments for bookings.
 - **Email Notifications**: Send booking confirmations and notifications.
 
