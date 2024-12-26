@@ -17,6 +17,7 @@ const bookingRouter = require('./routes/bookingRoutes');
 const errorController = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 
+// Start the express app
 const app = express();
 
 // TEMPLATE ENGINE
