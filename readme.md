@@ -5,7 +5,7 @@ Welcome to the official repository for the **Natours Project**, a comprehensive 
 🌟 [Live Demo](https://natours-85gu.onrender.com/)
 
 ## 📋 Features and Functionality
-
+### **Core Features**
 - **RESTful API**: Manage tours, reviews, users, and bookings.
 - **Server-Side Rendering**: Dynamic pages using Pug templates.
 - **CRUD Operations**: Perform CRUD operations on tours and bookings with MongoDB.
@@ -14,7 +14,6 @@ Welcome to the official repository for the **Natours Project**, a comprehensive 
 - **Responsive Design**: Fully responsive for all devices.
 
 ### **Authentication & Authorization**
-
 - **JWT Authentication**: Secure login with JWTs via cookies.
 - **Role-based Access Control**:
   - **Admin**: Full access.
@@ -23,19 +22,16 @@ Welcome to the official repository for the **Natours Project**, a comprehensive 
   - **Guide**: Limited tour and booking access.
 
 ### **Error Handling**
-
 - **Global Error Handling**: Catch and manage errors, including unhandled routes and async errors.
 - **Mongoose Error Handling**: Manage DB errors (invalid IDs, duplicate fields).
 
 ### **Security**
-
 - **Rate Limiting**: Prevent abuse by limiting requests.
 - **Secure HTTP Headers**: Protect the application.
 - **Data Sanitization**: Prevent malicious input.
 - **CORS**: Control resource sharing between domains.
-
+  
 ### **Payment & Email**
-
 - **Stripe Integration**: Handle payments for bookings.
 - **Email Notifications**: Send booking confirmations and notifications.
 
