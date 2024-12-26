@@ -1,4 +1,4 @@
-# Natours
+#![cropped-logo-green-round](https://github.com/user-attachments/assets/e7ac63a9-3f3f-487d-944e-5a03f1c158ed)  Natours
 
 Welcome to the official repository for the **Natours Project**, a comprehensive back-end application built with Node.js, Express, MongoDB, and Mongoose. This project provides a scalable, feature-rich RESTful API and a server-side rendered website, designed for managing a travel company’s tours and bookings.
 
