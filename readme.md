@@ -66,7 +66,7 @@ Welcome to the official repository for the **Natours Project**, a comprehensive 
 ## 📚 Postman Documentation
 
 You can view the API documentation via Postman:  
-[Postman Documentation](https://documenter.getpostman.com/view/23767871/2sAYJ4jgr4)
+[Postman Documentation: https://documenter.getpostman.com/view/23767871/2sAYJ4jgr4](https://documenter.getpostman.com/view/23767871/2sAYJ4jgr4) 
 
 ## 🔧 Setup and Installation
 
