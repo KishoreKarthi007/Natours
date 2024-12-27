@@ -16,6 +16,7 @@ const usersRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 const errorController = require('./controllers/errorController');
+const bookingController = require('./controllers/bookingController');
 const AppError = require('./utils/appError');
 
 // Start the express app
@@ -49,6 +50,12 @@ app.use('/api', limiter);
 // Development Logging
 // console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
+
+app.post(
+    '/webhook-checkout',
+    express.raw({ type: 'application/json' }),
+    bookingController.webhookCheckout
+);
 
 // Body Parser -> Reading the data from body to req.body
 app.use(express.json({ limit: '10kb' }));
