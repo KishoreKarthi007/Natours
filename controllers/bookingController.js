@@ -57,10 +57,11 @@ const createBookingCheckout = async (session) => {
     const tour = session.client_reference_id;
     const user = (await User.findOne({ email: session.customer_email })).id;
     const price = session.line_items[0].price_data.unit_amount / 1000;
-    await Booking.create({ tour, user, price });
+    const book = await Booking.create({ tour, user, price });
+    res.status(200).json({ book, received: true });
 };
 
-exports.webhookCheckout = (req, res, next) => {
+exports.webhookCheckout = async (req, res, next) => {
     const signature = req.headers['stripe-signature'];
     let event;
 
@@ -73,10 +74,17 @@ exports.webhookCheckout = (req, res, next) => {
     } catch (err) {
         return res.status(400).send(`Webhook error: ${err.message}`);
     }
-    if (event.type === 'checkout.session.completed')
-        createBookingCheckout(event.data.object);
-
-    res.status(200).json({ received: true });
+    if (event.type === 'checkout.session.completed') {
+        const tour = event.data.object.client_reference_id;
+        const user = (
+            await User.findOne({ email: event.data.object.customer_email })
+        ).id;
+        const price =
+            event.data.object.line_items[0].price_data.unit_amount / 1000;
+        const book = await Booking.create({ tour, user, price });
+        res.status(200).json({ book, received: true });
+    }
+    // res.status(200).json({ received: true });
 };
 
 exports.createBooking = factory.createOne(Booking);
