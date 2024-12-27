@@ -60,7 +60,7 @@ const createBookingCheckout = async (session) => {
         if (!user) {
             throw new Error('User not found');
         }
-        const price = session.amount / 1000; // INR to main currency unit
+        const price = session.amount_total / 1000; // INR to main currency unit
         await Booking.create({ tour, user: user.id, price });
     } catch (err) {
         console.error('Error creating booking:', err);
