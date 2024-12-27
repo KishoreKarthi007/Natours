@@ -22,7 +22,7 @@ const AppError = require('./utils/appError');
 // Start the express app
 const app = express();
 
-app.enable('trust proxy');
+app.set('trust proxy', 1); // Trust one proxy (most common setup)
 
 // TEMPLATE ENGINE
 app.set('view engine', 'pug');
@@ -41,9 +41,10 @@ app.use(
 
 // Implement Rate Limiting to the API
 const limiter = rateLimit({
-    limit: 100,
-    windowMs: 60 * 60 * 1000,
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 500, // Limit each IP to 100 requests per windowMs
     message: 'Too many requests, please try again 1 hour later.',
+    keyGenerator: (req, res) => req.ip, // Ensure rate limiting uses the correct IP address
 });
 app.use('/api', limiter);
 
