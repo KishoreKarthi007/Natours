@@ -60,14 +60,14 @@ const createBookingCheckout = async (session) => {
         if (!user) {
             throw new Error('User not found');
         }
-        const price = session.line_items[0].price_data.unit_amount / 1000; // INR to main currency unit
+        const price = session.amount / 1000; // INR to main currency unit
         await Booking.create({ tour, user: user.id, price });
     } catch (err) {
         console.error('Error creating booking:', err);
         throw err; // Optionally throw the error so it can be caught in webhookCheckout
     }
 };
-exports.webhookCheckout = catchAsync(async (req, res, next) => {
+exports.webhookCheckout = (req, res, next) => {
     const signature = req.headers['stripe-signature'];
     let event;
 
@@ -80,11 +80,15 @@ exports.webhookCheckout = catchAsync(async (req, res, next) => {
     } catch (err) {
         return res.status(400).send(`Webhook error: ${err.message}`);
     }
+
+    console.log('Stripe event type:', event.type);
+console.log('Stripe event data:', event.data.object);
+
     if (event.type === 'checkout.session.completed')
-        await createBookingCheckout(event.data.object);
+        createBookingCheckout(event.data.object);
 
     res.status(200).json({ received: true });
-});
+};
 
 exports.createBooking = factory.createOne(Booking);
 exports.getBooking = factory.getOne(Booking);
