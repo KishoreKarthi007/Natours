@@ -13,7 +13,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         // success_url: `${req.protocol}://${req.get('host')}/my-tours?tour=${req.params.tourId}&user=${req.user.id}&price=${tour.price}`,
-        success_url: `${req.protocol}://${req.get('host')}/my-tours`,
+        success_url: `${req.protocol}://${req.get('host')}/my-tours/?alert=booking`,
         cancel_url: `${req.protocol}://${req.get('host')}/tours/${tour.slug}`,
         customer_email: req.user.email,
         client_reference_id: req.params.tourId,
@@ -53,20 +53,14 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 //     await Booking.create({ tour, user, price });
 //     res.redirect(req.originalUrl.split('?')[0]);
 // });
+
 const createBookingCheckout = async (session) => {
-    try {
-        const tour = session.client_reference_id;
-        const user = await User.findOne({ email: session.customer_email });
-        if (!user) {
-            throw new Error('User not found');
-        }
-        const price = session.amount_total / 1000; // INR to main currency unit
-        await Booking.create({ tour, user: user.id, price });
-    } catch (err) {
-        console.error('Error creating booking:', err);
-        throw err; // Optionally throw the error so it can be caught in webhookCheckout
-    }
+    const tour = session.client_reference_id;
+    const user = await User.findOne({ email: session.customer_email });
+    const price = session.amount_total / 1000; // INR to main currency unit
+    await Booking.create({ tour, user: user.id, price });
 };
+
 exports.webhookCheckout = (req, res, next) => {
     const signature = req.headers['stripe-signature'];
     let event;
@@ -80,9 +74,6 @@ exports.webhookCheckout = (req, res, next) => {
     } catch (err) {
         return res.status(400).send(`Webhook error: ${err.message}`);
     }
-
-    console.log('Stripe event type:', event.type);
-console.log('Stripe event data:', event.data.object);
 
     if (event.type === 'checkout.session.completed')
         createBookingCheckout(event.data.object);
