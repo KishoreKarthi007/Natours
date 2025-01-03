@@ -3,26 +3,28 @@ const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
-
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 
+// Import the routes
 const viewRoutes = require('./routes/viewRoutes');
 const toursRouter = require('./routes/tourRoutes');
 const usersRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
+// Import the controllers
 const errorController = require('./controllers/errorController');
 const bookingController = require('./controllers/bookingController');
+// Import the AppError class
 const AppError = require('./utils/appError');
 
 // Start the express app
 const app = express();
 
-app.set('trust proxy', 1); // Trust one proxy (most common setup)
+app.set('trust proxy', 1); 
 
 // TEMPLATE ENGINE
 app.set('view engine', 'pug');
